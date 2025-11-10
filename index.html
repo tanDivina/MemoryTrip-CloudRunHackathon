@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Memory Trip</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              'brand-bg': '#f5f1e8', // Parchment
+              'brand-surface': '#ffffff', // Paper white
+              'brand-primary': '#e0ddd7', // Light gray stone
+              'brand-secondary': '#26a69a', // Teal Blue
+              'brand-text': '#3a3a3a', // Dark charcoal/ink
+              'brand-text-muted': '#7a7a7a', // Lighter gray ink
+            },
+            fontFamily: {
+              sans: ['Inter', 'sans-serif'],
+              display: ['Kalam', 'cursive'],
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Kalam:wght@400;700&display=swap" rel="stylesheet">
+  <script type="importmap">
+{
+  "imports": {
+    "react": "https://aistudiocdn.com/react@^19.2.0",
+    "react-dom/": "https://aistudiocdn.com/react-dom@^19.2.0/",
+    "react/": "https://aistudiocdn.com/react@^19.2.0/",
+    "@google/genai": "https://aistudiocdn.com/@google/genai@^1.29.0"
+  }
+}
+</script>
+<style>
+  /* --- ANIMATIONS --- */
+
+  /* Button Glow Animation */
+  .animated-glow-button {
+    position: relative;
+    background: transparent !important;
+    z-index: 1;
+    color: white;
+  }
+
+  .animated-glow-button::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: calc(100% + 6px); /* 3px glow on each side */
+    height: calc(100% + 6px); /* 3px glow on each side */
+    background: conic-gradient(
+        from 0deg at 50% 50%,
+        transparent 0 270deg,
+        #84e1d8 300deg, /* Bright teal "comet head" */
+        transparent 360deg
+    );
+    z-index: -2;
+    border-radius: 12px; /* Button is rounded-lg (8px), so this is slightly larger */
+    animation: rotate-glow 4s linear infinite; /* Slower animation */
+    filter: blur(8px); /* Softer blur */
+    opacity: 0.7; /* Less intense */
+  }
+
+  .animated-glow-button::after {
+    content: '';
+    position: absolute;
+    background-color: #26a69a; /* primary button color */
+    inset: 3px; /* border thickness */
+    border-radius: 6px; /* slightly smaller than button's radius */
+    z-index: -1;
+    transition: background-color 0.3s ease;
+  }
+
+  .animated-glow-button:hover:not(:disabled)::after {
+    background-color: #31c9ba; /* A slightly lighter, more vibrant hover color */
+  }
+
+  .animated-glow-button:disabled::before {
+    display: none;
+  }
+  
+  .animated-glow-button:disabled::after {
+    background-color: #9ca3af; /* gray-400 */
+  }
+  
+  .animated-glow-button:disabled {
+      color: #e5e7eb; /* gray-200 */
+  }
+
+  @keyframes rotate-glow {
+    from {
+      transform: translate(-50%, -50%) rotate(0deg);
+    }
+    to {
+      transform: translate(-50%, -50%) rotate(360deg);
+    }
+  }
+
+  @keyframes fade-in-up {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  .animate-fade-in-up {
+    animation: fade-in-up 0.5s ease-out forwards;
+  }
+
+  .clamp-3-lines {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+  }
+</style>
+</head>
+  <body class="text-brand-text font-sans antialiased">
+    <div id="root"></div>
+  </body>
+</html>
